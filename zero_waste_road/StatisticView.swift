@@ -87,7 +87,7 @@ struct StatisticView: View {
                 .scaledToFill()
                 .ignoresSafeArea()
 
-            VStack(spacing: 24) {
+            VStack(spacing: 10) {
                 Spacer()
                 // Переключатель Week / Month / Year
                 periodSelector
@@ -100,7 +100,7 @@ struct StatisticView: View {
 
                 Spacer()
             }
-            .padding(.bottom, 70)
+            .padding(.bottom, 30)
             .padding(.horizontal, 24)
         }
         .navigationBarBackButtonHidden(true)
@@ -146,9 +146,11 @@ struct StatisticView: View {
                         )
                         .cornerRadius(10)
                 }
+//                .padding()
             }
         }
     }
+
 
     private var chartCard: some View {
         ZStack {
@@ -183,6 +185,7 @@ struct StatisticView: View {
                 unitText: "$"
             )
         }
+        
     }
 
     private func totalCard(iconName: String,
@@ -340,4 +343,5 @@ struct DonutSegment: Shape {
 #Preview {
     StatisticView()
         .environmentObject(WasteStore())   // WasteStore() or WasteStore.mock
+        .dynamicTypeSize(.medium)
 }

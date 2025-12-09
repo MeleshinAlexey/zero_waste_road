@@ -168,3 +168,4 @@ struct TipRow: View {
 #Preview {
     TipsView()
 }
+

@@ -129,8 +129,8 @@ struct MainScreenView: View {
                             .font(.system(size: 20, weight: .semibold))
                     }
                 }
-                .padding(.horizontal, 16)
-                .padding(.bottom, 120)
+                .padding(.horizontal, 30)
+                .padding(.bottom, 140)
             }
         }
     }

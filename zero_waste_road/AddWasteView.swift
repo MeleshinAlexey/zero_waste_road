@@ -226,4 +226,5 @@ extension View {
 #Preview {
     AddWasteView()
         .environmentObject(WasteStore())
+        .dynamicTypeSize(.medium)
 }
