@@ -128,8 +128,14 @@ struct TipsView: View {
                     }
                 }
                 .padding(.horizontal, 12)
-                .padding(.top, 90)
-                .padding(.bottom, 90)
+                .padding(.top, 16)
+                .padding(.bottom, 16)
+            }
+            .safeAreaInset(edge: .top) {
+                Spacer().frame(height: 100)
+            }
+            .safeAreaInset(edge: .bottom) {
+                Spacer().frame(height: 100)
             }
         }
     }

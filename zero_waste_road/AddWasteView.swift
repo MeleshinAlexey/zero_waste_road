@@ -1,3 +1,9 @@
+//
+//  AddWasteView.swift
+//  zero_waste_road
+//
+//  Created by Alexey Meleshin on 12/5/25.
+//
 import SwiftUI
 
 // MARK: - Main Add Waste Screen
@@ -44,9 +50,9 @@ struct AddWasteView: View {
                 .frame(width: screenBounds.width, height: screenBounds.height)
                 .ignoresSafeArea()
             
-            VStack(spacing: 10) {
-                Spacer()
-                VStack(alignment: .leading, spacing: 20) {
+            VStack(spacing: 20) {
+//                Spacer()
+                VStack(alignment: .leading, spacing: 10) {
                         // Product categories
                         Button {
                             withAnimation(.spring(response: 0.4, dampingFraction: 0.85)) {
@@ -90,16 +96,11 @@ struct AddWasteView: View {
                                 .cornerRadius(8)
                         }
 
-                        // Корзина
-                        Image("trash_big")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(height: 260)
-                            .padding(.top, 16)
                     }
                     .padding(.horizontal, 24)
-                    .padding(.top, 24)
-
+//                    .padding(.top, 24)
+//                Spacer()
+                
                 // Save button
                 Button(action: save) {
                     Text("Save")
@@ -116,12 +117,14 @@ struct AddWasteView: View {
                 }
                 .disabled(!isFormValid)
                 .padding(.horizontal, 24)
-                .padding(.top, 10)
-                .padding(.bottom, 60)
+//                .padding(.top, 10)
+//                .padding(.bottom, 60)
 
-                Spacer()
+//                Spacer()
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+            .padding(.bottom, 60) 
+//            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+            
 
             if showCategoryPicker {
                 Color.black.opacity(0.4)

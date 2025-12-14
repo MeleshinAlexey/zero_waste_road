@@ -1,3 +1,10 @@
+//
+//  LoadingView.swift
+//  zero_waste_road
+//
+//  Created by Alexey Meleshin on 12/5/25.
+//
+
 import SwiftUI
 
 struct LoadingView: View {

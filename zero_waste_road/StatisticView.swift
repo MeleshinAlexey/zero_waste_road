@@ -102,6 +102,12 @@ struct StatisticView: View {
             }
             .padding(.bottom, 30)
             .padding(.horizontal, 24)
+            .safeAreaInset(edge: .top) {
+                Spacer().frame(height: 10)
+            }
+            .safeAreaInset(edge: .bottom) {
+                Spacer().frame(height: 10)
+            }
         }
         .navigationBarBackButtonHidden(true)
         .toolbar {
@@ -166,7 +172,7 @@ struct StatisticView: View {
                 DonutChartView(slices: slices)
             }
         }
-        .frame(height: 360)
+        .frame(height: 300)
     }
     
     private var totalsRow: some View {
@@ -305,6 +311,7 @@ struct DonutChartView: View {
                 }
             }
             .frame(width: size, height: size)
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
         }
     }
 }
