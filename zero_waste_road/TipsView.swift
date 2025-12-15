@@ -118,24 +118,22 @@ struct TipsView: View {
         ZStack {
             Image("main_background")
                 .resizable()
-                .scaledToFill()
                 .ignoresSafeArea()
 
-            ScrollView {
-                VStack(spacing: 12) {
-                    ForEach(tipsData) { tip in
-                        TipRow(tip: tip)
+            GeometryReader { geo in
+                let height = geo.size.height
+                // Reserve space for TabBar (safeAreaInsets.bottom already includes it)
+                let bottomPadding = geo.safeAreaInsets.bottom + max(20, min(height * 0.035, 40))
+
+                ScrollView {
+                    VStack(spacing: 12) {
+                        ForEach(tipsData) { tip in
+                            TipRow(tip: tip)
+                        }
                     }
+                    .padding(.horizontal, 12)
+                    .padding(.bottom, bottomPadding)
                 }
-                .padding(.horizontal, 12)
-                .padding(.top, 16)
-                .padding(.bottom, 16)
-            }
-            .safeAreaInset(edge: .top) {
-                Spacer().frame(height: 100)
-            }
-            .safeAreaInset(edge: .bottom) {
-                Spacer().frame(height: 100)
             }
         }
     }
@@ -174,4 +172,3 @@ struct TipRow: View {
 #Preview {
     TipsView()
 }
-

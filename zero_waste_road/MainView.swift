@@ -14,6 +14,7 @@ struct MainView: View {
     var body: some View {
         TabView(selection: $selectedTab) {
             StatisticView()
+                .environmentObject(WasteStore.mock)
                 .tabItem {
                     Image("statistic_item")
 

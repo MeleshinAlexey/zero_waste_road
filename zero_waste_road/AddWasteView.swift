@@ -40,20 +40,25 @@ struct AddWasteView: View {
             .replacingOccurrences(of: ",", with: ".")
         return Double(cleaned)
     }
-    let screenBounds = UIScreen.main.bounds
     
     var body: some View {
-        ZStack {
-            Image("add_waste_background")
-                .resizable()
-                .scaledToFill()
-                .frame(width: screenBounds.width, height: screenBounds.height)
-                .ignoresSafeArea()
-            
-            VStack(spacing: 20) {
-//                Spacer()
-                VStack(alignment: .leading, spacing: 10) {
-                        // Product categories
+        GeometryReader { geo in
+            let width = geo.size.width
+            let height = geo.size.height
+            let horizontalPadding = max(16, min(width * 0.06, 28))
+            let verticalSpacing = max(10, height * 0.02)
+
+            ZStack {
+                Image("add_waste_background")
+                    .resizable()
+                    .scaledToFill()
+                    .ignoresSafeArea()
+                
+                VStack(spacing: verticalSpacing) {
+
+                VStack(alignment: .leading, spacing: 20) {
+                    
+                        /// Product categories
                         Button {
                             withAnimation(.spring(response: 0.4, dampingFraction: 0.85)) {
                                 showCategoryPicker = true
@@ -71,8 +76,9 @@ struct AddWasteView: View {
                             }
                         }
                         .buttonStyle(.plain)
+                        
 
-                        // Weight (g)
+                        /// Weight (g)
                         VStack(alignment: .leading, spacing: 8) {
                             Text("Weight (g):")
                                 .font(.system(size: 16, weight: .regular))
@@ -84,7 +90,7 @@ struct AddWasteView: View {
                                 .cornerRadius(8)
                         }
 
-                        // Price per 1 kg ($)
+                        /// Price per 1 kg ($)
                         VStack(alignment: .leading, spacing: 8) {
                             Text("Price per 1 kg ($):")
                                 .font(.system(size: 16, weight: .regular))
@@ -95,13 +101,11 @@ struct AddWasteView: View {
                                 .background(Color.gray.opacity(0.6))
                                 .cornerRadius(8)
                         }
-
                     }
-                    .padding(.horizontal, 24)
-//                    .padding(.top, 24)
-//                Spacer()
-                
-                // Save button
+                .offset(x: 0, y: -width/2)
+                .padding(.horizontal, height/30)
+                    
+                /// Save button
                 Button(action: save) {
                     Text("Save")
                         .font(.system(size: 20, weight: .semibold))
@@ -116,36 +120,32 @@ struct AddWasteView: View {
                         .cornerRadius(16)
                 }
                 .disabled(!isFormValid)
-                .padding(.horizontal, 24)
-//                .padding(.top, 10)
-//                .padding(.bottom, 60)
-
-//                Spacer()
+                .padding(.horizontal, height/30)
+                .offset(x: 0, y: -width/8)
             }
-            .padding(.bottom, 60) 
-//            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-            
-
-            if showCategoryPicker {
-                Color.black.opacity(0.4)
-                    .ignoresSafeArea()
-                    .onTapGesture {
-                        withAnimation(.spring(response: 0.4, dampingFraction: 0.85)) {
-                            showCategoryPicker = false
+                
+                if showCategoryPicker {
+                    Color.black.opacity(0.4)
+                        .ignoresSafeArea()
+                        .onTapGesture {
+                            withAnimation(.spring(response: 0.4, dampingFraction: 0.85)) {
+                                showCategoryPicker = false
+                            }
                         }
-                    }
 
-                ProductCategoryPickerView(
-                    selectedCategory: $selectedCategory,
-                    onClose: {
-                        withAnimation(.spring(response: 0.4, dampingFraction: 0.85)) {
-                            showCategoryPicker = false
-                        }
-                    },
-                    namespace: categoryAnimation
-                )
-                .transition(.opacity)
+                    ProductCategoryPickerView(
+                        selectedCategory: $selectedCategory,
+                        onClose: {
+                            withAnimation(.spring(response: 0.4, dampingFraction: 0.85)) {
+                                showCategoryPicker = false
+                            }
+                        },
+                        namespace: categoryAnimation
+                    )
+                    .transition(.opacity)
+                }
             }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
         .ignoresSafeArea(.keyboard)
         .hideKeyboardOnTap()
@@ -184,7 +184,7 @@ struct CategoryFieldView: View {
         VStack(alignment: .leading, spacing: 8) {
             Text("Product categories")
                 .font(.system(size: 16, weight: .regular))
-                .padding(.top, 30)
+
             
             ZStack {
                 RoundedRectangle(cornerRadius: 8)

@@ -81,33 +81,42 @@ struct StatisticView: View {
     }
 
     var body: some View {
-        ZStack {
-            Image("main_background")
-                .resizable()
-                .scaledToFill()
-                .ignoresSafeArea()
+        GeometryReader { geo in
+            let width = geo.size.width
+            let height = geo.size.height
 
-            VStack(spacing: 10) {
-                Spacer()
-                // Переключатель Week / Month / Year
-                periodSelector
+            // Adaptive layout metrics (clamped)
+            let horizontalPadding = max(16, min(width * 0.06, 28))
+            let verticalSpacing = max(10, height * 0.02)
+            let bottomPadding = max(12, geo.safeAreaInsets.bottom)   // keep content above home indicator
+            let topPadding = max(12, geo.safeAreaInsets.top)         // keep content below notch / status bar
+            let extraTop: CGFloat = 20        // минимальный воздух под NavigationBar
+            let extraBottom = max(30, min(height * 0.025, 28)) // адаптивный отступ над TabBar
 
-                // Карточка с диаграммой
-                chartCard
+            ZStack {
+                Image("main_background")
+                    .resizable()
+                    .ignoresSafeArea()
 
-                // Две карточки: Total thrown away / Lost
-                totalsRow
+                VStack(spacing: verticalSpacing) {
+                    
+                    // Переключатель Week / Month / Year
+                    periodSelector
 
-                Spacer()
+                    // Карточка с диаграммой
+                    chartCard
+
+                    // Две карточки: Total thrown away / Lost
+                    totalsRow
+
+                    
+                }
+                .padding(.horizontal, horizontalPadding)
+                .padding(.top, geo.safeAreaInsets.top + extraTop)
+                .padding(.bottom, geo.safeAreaInsets.bottom + height)
+                
             }
-            .padding(.bottom, 30)
-            .padding(.horizontal, 24)
-            .safeAreaInset(edge: .top) {
-                Spacer().frame(height: 10)
-            }
-            .safeAreaInset(edge: .bottom) {
-                Spacer().frame(height: 10)
-            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
         .navigationBarBackButtonHidden(true)
         .toolbar {
@@ -349,6 +358,6 @@ struct DonutSegment: Shape {
 
 #Preview {
     StatisticView()
-        .environmentObject(WasteStore())   // WasteStore() or WasteStore.mock
+        .environmentObject(WasteStore.mock)   // WasteStore() or WasteStore.mock
         .dynamicTypeSize(.medium)
 }
