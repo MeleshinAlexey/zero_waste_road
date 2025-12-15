@@ -121,7 +121,7 @@ struct AddWasteView: View {
                 }
                 .disabled(!isFormValid)
                 .padding(.horizontal, height/30)
-                .offset(x: 0, y: -width/8)
+                .offset(x: 0, y: -width/8) 
             }
                 
                 if showCategoryPicker {
@@ -143,6 +143,8 @@ struct AddWasteView: View {
                         namespace: categoryAnimation
                     )
                     .transition(.opacity)
+                    .padding(.top, -width/1.5)
+//                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
