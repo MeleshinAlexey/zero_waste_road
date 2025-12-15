@@ -12,6 +12,7 @@ struct zero_waste_roadApp: App {
     var body: some Scene {
         WindowGroup {
             MainView()
+                .preferredColorScheme(.light)
         }
     }
 }
