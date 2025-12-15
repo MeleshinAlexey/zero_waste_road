@@ -358,6 +358,6 @@ struct DonutSegment: Shape {
 
 #Preview {
     StatisticView()
-        .environmentObject(WasteStore.mock)   // WasteStore() or WasteStore.mock
+        .environmentObject(WasteStore())   // WasteStore() or WasteStore.mock
         .dynamicTypeSize(.medium)
 }
